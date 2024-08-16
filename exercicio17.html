@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+  <meta charset="UTF-8" />
+  <title>TABUADA</title>
+  <style>
+    body {
+      background: rgb(59, 156, 185);
+  
+    }
+    section{
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    margin: auto;
+    box-shadow: 3px 3px 10px black;
+
+        }
+    footer{
+          text-align: center;
+          color: white;
+          font-size: italic;
+
+        }
+    header {
+     color: white;
+      text-align: center;
+    }
+    div {
+     
+      padding: 8px;
+      
+    }
+    select#option { /*veja como fazemos referecia a algo no css pelo id*/
+      width: 150px;
+
+    }
+  </style>
+
+  </head>
+  <body>
+    <header>
+   <h1> Analisador de Números</h1>
+  </header>
+  <section>
+   <p>numero (entre 1 e 100): <input type="number" name="txt" id="nu"> 
+    <input type="button" value="Gerar calculadora" onclick="adicionar()"></p>
+    
+
+   <p><select name="tabuada" id="option" size="10"></select></p>
+   <input type="button" value="finalizar" onclick="finalizar()">
+   
+   <div id="res"></div>
+  </section>
+   </body>
+   <script>
+    var num = document.getElementById('nu')
+    var lista = document.getElementById('option')
+    var res = document.getElementById('res')
+    var valores  =[] //temos que criar ela vazia igual no python
+    function isNumero(n) {
+      if(Number(n) >= 1 && Number(n) <= 100) {
+      return true
+    }
+    else {
+      return false
+    }
+    }
+
+    function inlista(n, l){
+      if(l.indexOf(Number(n)) != -1){
+        return true
+      }
+      else {
+        return false
+      }
+    }
+    function adicionar() {
+    if(isNumero(num.value) && !inlista(num.value, valores)){ // essa exclamação na parte de '!inlista' quer dizer não
+      valores.push(Number(num.value)) //inserção dos valores da lista, agora o  var valores = [] ja tem os valores inseridos
+        var item = document.createElement('option')
+        item.text = ` o valor ${num.value} foi adicionado`
+        lista.appendChild(item)
+      res.innerHTML = ''
+      }
+    
+    else{
+      window.alert('invalido')
+    }
+    num.value = ''
+    num.focus()
+    }
+    function finalizar() {
+      if(valores.length == 0){
+        window.alert('adicione um valor')
+      } else {
+        var tot = valores.length //descobre o tamanho vetor. isso é a quantidade de valores que ele tem
+        var maior = valores[0]
+        var menor = valores[0]
+        var soma = 0
+        var media = 0
+        for(let pos in valores) {
+        soma += valores[pos]
+          if(valores[pos] > maior)
+            maior = valores[pos]
+          if(valores[pos] < menor)
+            menor = valores[pos]
+        }
+      }
+        media = soma / tot
+        res.innerHTML =` `
+        res.innerHTML +=`<p>temos ${tot} numeros cadastrados </p> `
+        res.innerHTML +=`<p>o maior valor foi ${maior} </p>`
+        res.innerHTML +=`<p>o menor valor foi  ${menor}</p> `
+        res.innerHTML +=`<p>a soma de todos os valores são  ${soma}</p> `
+        res.innerHTML +=`<p>a media é  ${media}</p> `
+    }
+  </script> 
+   </html>
